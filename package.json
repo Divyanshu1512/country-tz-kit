@@ -1,0 +1,100 @@
+{
+  "name": "country-tz-kit",
+  "version": "0.1.0",
+  "description": "Offline ISO 3166-1 country/dialing metadata, multi-timezone-safe IANA timezone resolution, Intl UTC-to-local formatting, strict Unicode contact validation, and optional React/phone subpaths.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Divyanshu1512/country-tz-kit.git"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "files": [
+    "dist",
+    "THIRD_PARTY_NOTICES.md",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "licenses"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./country-metadata": {
+      "types": "./dist/country-metadata.d.ts",
+      "import": "./dist/country-metadata.js"
+    },
+    "./datetime": {
+      "types": "./dist/user-datetime.d.ts",
+      "import": "./dist/user-datetime.js"
+    },
+    "./validation": {
+      "types": "./dist/validation.d.ts",
+      "import": "./dist/validation.js"
+    },
+    "./phone": {
+      "types": "./dist/phone.d.ts",
+      "import": "./dist/phone.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    }
+  },
+  "keywords": [
+    "timezone",
+    "iana",
+    "iso-3166",
+    "country",
+    "dialing-code",
+    "e164",
+    "intl",
+    "datetime",
+    "unicode",
+    "validation",
+    "react",
+    "offline"
+  ],
+  "peerDependencies": {
+    "libphonenumber-js": ">=1.12.0",
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "libphonenumber-js": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "libphonenumber-js": "1.13.17",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.8.3",
+    "esbuild": "0.25.12",
+    "playwright-core": "1.61.1"
+  },
+  "scripts": {
+    "generate:data": "node scripts/regenerate-metadata.mjs",
+    "check:data": "node scripts/regenerate-metadata.mjs --check",
+    "build": "node scripts/clean-dist.mjs && tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "audit:release": "node scripts/audit-release.mjs",
+    "audit:local": "node scripts/audit-release.mjs --local-only",
+    "prepack": "npm run build",
+    "pack:check": "npm run build && npm run audit:release",
+    "verify": "npm run check:data && npm run typecheck && npm test && npm run test:browser && npm run audit:release",
+    "test:browser": "node --test test/browser/*.test.mjs"
+  }
+}
